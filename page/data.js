@@ -9,12 +9,12 @@ const EDITION = {
 };
 
 const NUMS = [
-  ['13', 'days COP31 has run in Antalya, a day past its close'],
-  ['3', 'Houthi ballistic missiles downed over Riyadh'],
-  ['6.7', 'magnitude of the deep quake in Junín, Peru'],
-  ['146', 'people safe after a jet\'s engine-fire landing'],
-  ['6', 'killed by Israeli strikes in Gaza, a cameraman among them'],
-  ['2028', 'deadline set for UN rules on "killer robots"'],
+  ['Day 13', 'GL', 'of COP31 in Antalya, a day past its planned close'],
+  ['3', 'ME', 'Houthi ballistic missiles downed over Riyadh'],
+  ['6.7', 'AM', 'magnitude of the deep quake in Junín, Peru'],
+  ['146', 'AS', 'people safe after a jet\'s engine-fire landing'],
+  ['6', 'ME', 'killed by Israeli strikes in Gaza, a cameraman among them'],
+  ['2028', 'GL', 'deadline set for UN rules on "killer robots"'],
 ];
 
 const LEADS = [
@@ -24,22 +24,22 @@ const LEADS = [
   { region: 'ME', place: 'RIYADH, SAUDI ARABIA · WAR', art: 'riyadh', at: [46.7, 24.7, -4, 8], tag: 'RIYADH: 3 DOWNED', status: 'Coalition says · Reuters',
     h: 'Three Houthi missiles shot down over Riyadh',
     p: 'Second attack on the Saudi capital in days, after its tallest tower was hit on Thursday. No casualties reported. (Reuters)' },
-  { region: 'EU', place: 'KYIV & KRYVYI RIH, UKRAINE · WAR', art: 'kyiv', at: [30.5, 50.5, 6, -6], tag: 'UKRAINE: STRIKES', status: 'Officials · Kyiv Post',
+  { region: 'EU', place: 'KYIV & KRYVYI RIH, UKRAINE · WAR', art: 'kyiv', at: [30.5, 50.5, 8, -2], tag: 'UKRAINE: STRIKES', status: 'Officials · Kyiv Post',
     h: 'Russia hits Kyiv again as Kryvyi Rih counts its dead',
     p: 'Dawn missile sets homes ablaze in Kyiv\'s Podil; a double-tap strike in Kryvyi Rih killed a boy of 7 and a medic. (Kyiv Post, KI)' },
 ];
 
 const CARDS = [
-  { region: 'AM', place: 'JUNÍN, PERU', art: 'quake', at: [-75.8, -11.0], h: 'M6.7 quake shakes central Peru', p: '108 km deep, felt in Lima; no deaths. (USGS)', status: 'official' },
-  { region: 'AS', place: 'DAVAO, PHILIPPINES', art: 'plane', at: [125.6, 7.1], h: 'Jet lands after engine-fire alert', p: 'Air Niugini 767: all 146 aboard safe. (AP)', status: 'official' },
-  { region: 'ME', place: 'GAZA', art: 'gaza', at: [34.4, 31.5, -16, 6], h: 'Israeli strikes kill six in Gaza', p: 'Two children and a cameraman among them. (AP)', status: 'reported' },
-  { region: 'AF', place: 'BARA, SUDAN', art: 'sudan', at: [30.4, 13.6], h: 'Army says it retook the city of Bara', p: 'Key supply road with it, the army says. (Ilke)', status: 'claim' },
-  { region: 'AM', place: 'LAS VEGAS, USA', art: 'f1', at: [-115.1, 36.2], h: 'Verstappen inherits Vegas pole', p: 'Antonelli fastest but takes a grid penalty. (FIA)', status: 'official' },
-  { region: 'OC', place: 'WELLINGTON, NZ', art: 'cricket', at: [174.8, -41.3, -4, 0], h: 'Rahul century puts India on top', p: '486-4 at stumps, lead of 118 on day 3. (Wisden)', status: 'official' },
-  { region: 'ME', place: 'STRAIT OF HORMUZ', art: 'drone', at: [56.3, 26.6, 14, -8], h: 'Iran says it downed a 58th US drone', p: 'IRGC claims an MQ-9; no US word. (Al Jazeera)', status: 'claim' },
-  { region: 'GL', place: 'GENEVA · UN', art: 'robot', at: [6.1, 46.2, 6, 10], h: '"Killer robot" talks end with 2028 aim', p: 'Russia blocked faster, binding rules. (Reuters)', status: 'official' },
-  { region: 'AS', place: 'SEJONG, S. KOREA', art: 'train', at: [127.3, 36.5, 6, 2], h: 'Freight train derails, main line cut', p: 'Five cars off the track; no one hurt. (Yonhap)', status: 'official' },
-  { region: 'EU', place: 'PARIS, FRANCE', art: 'protest', at: [2.35, 48.86, -14, -10], h: 'Young people march on cost of living', p: 'Sixth day of protests across France. (France 24)', status: 'reported' },
+  { region: 'AM', place: 'JUNÍN, PERU', art: 'quake', tag: 'PERU: M6.7', at: [-75.8, -11.0], h: 'M6.7 quake shakes central Peru', p: '108 km deep, felt in Lima; no deaths. (USGS)', status: 'official' },
+  { region: 'AS', place: 'DAVAO, PHILIPPINES', art: 'plane', tag: 'DAVAO: 146 SAFE', at: [125.6, 7.1], h: 'Jet lands after engine-fire alert', p: 'Air Niugini 767: all 146 aboard safe. (AP)', status: 'official' },
+  { region: 'ME', place: 'GAZA', art: 'gaza', tag: 'GAZA: 6 KILLED', at: [34.4, 31.5, -16, 6], h: 'Israeli strikes kill six in Gaza', p: 'Two children and a cameraman among them. (AP)', status: 'reported' },
+  { region: 'AF', place: 'BARA, SUDAN', art: 'sudan', tag: 'SUDAN: BARA', at: [30.4, 13.6], h: 'Army says it retook the city of Bara', p: 'Key supply road with it, the army says. (Ilke)', status: 'claim' },
+  { region: 'AM', place: 'LAS VEGAS, USA', art: 'f1', tag: 'VEGAS: POLE', at: [-115.1, 36.2], h: 'Verstappen inherits Vegas pole', p: 'Antonelli fastest but takes a grid penalty. (FIA)', status: 'official' },
+  { region: 'OC', place: 'WELLINGTON, NZ', art: 'cricket', tag: 'RAHUL: 100', at: [174.8, -41.3, -4, 0], h: 'Rahul century puts India on top', p: '486-4 at stumps, lead of 118 on day 3. (Wisden)', status: 'official' },
+  { region: 'ME', place: 'STRAIT OF HORMUZ', art: 'drone', tag: 'HORMUZ: DRONE', at: [56.3, 26.6, 14, -8], h: 'Iran says it downed a 58th US drone', p: 'IRGC claims an MQ-9; no US word. (Al Jazeera)', status: 'claim' },
+  { region: 'GL', place: 'GENEVA · UN', art: 'robot', tag: 'UN: AI ARMS', at: [6.1, 46.2, 6, 10], h: '"Killer robot" talks end with 2028 aim', p: 'Russia blocked faster, binding rules. (Reuters)', status: 'official' },
+  { region: 'AS', place: 'SEJONG, S. KOREA', art: 'train', tag: 'KOREA: DERAIL', at: [127.3, 36.5, 6, 2], h: 'Freight train derails, main line cut', p: 'Five cars off the track; no one hurt. (Yonhap)', status: 'official' },
+  { region: 'EU', place: 'PARIS, FRANCE', art: 'protest', tag: 'FRANCE: MARCH', at: [2.35, 48.86, -14, 6], h: 'Young people march on cost of living', p: 'Sixth day of protests across France. (France 24)', status: 'reported' },
 ];
 
 const MORE = [

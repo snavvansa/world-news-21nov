@@ -14,12 +14,13 @@
   .kick { top: 8px; height: 19px; display: flex; justify-content: space-between; font-size: 13px; font-weight: 700; letter-spacing: 1.3px; color: #b3261e; border-bottom: 2px solid #15171c; }
   .kick span:last-child { color: #15171c; }
   .date { top: 29px; height: 84px; text-align: center; font-family: "Liberation Serif", serif; font-weight: 700; font-size: 82px; line-height: 84px; letter-spacing: -1.5px; white-space: nowrap; }
-  .deck { top: 114px; height: 23px; text-align: center; font-family: "Liberation Serif", serif; font-style: italic; font-size: 18px; color: #2b2f38; border-bottom: 1px solid #15171c; white-space: nowrap; }
+  .deck { top: 114px; height: 23px; text-align: center; font-family: "Liberation Serif", serif; font-style: italic; font-weight: 700; font-size: 18px; color: #15171c; border-bottom: 1px solid #15171c; white-space: nowrap; }
 
   /* numbers */
   .nums { top: 142px; height: 46px; display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; }
   .num { border-left: 4px solid #b3261e; padding-left: 7px; }
-  .num .v { font-family: "Liberation Serif", serif; font-weight: 700; font-size: 25px; line-height: 25px; color: #b3261e; }
+  .num .v { font-family: "Liberation Serif", serif; font-weight: 700; font-size: 26px; line-height: 25px; color: #b3261e; white-space: nowrap; }
+  .num .v i { font-style: normal; font-family: "Liberation Sans", sans-serif; font-size: 9px; color: #fff; padding: 1px 4px; vertical-align: 5px; margin-left: 4px; letter-spacing: .4px; }
   .num .l { font-size: 10.5px; line-height: 11.5px; color: #333; }
 
   /* region bar */
@@ -33,30 +34,32 @@
   .lead .tag { position: absolute; left: 8px; top: 8px; background: #b3261e; color: #fff; font-weight: 700; font-size: 21px; padding: 3px 9px; letter-spacing: .3px; }
   .lead .st { position: absolute; left: 0; top: 101px; background: rgba(0,0,0,.72); color: #fff; font-size: 10.5px; padding: 2px 6px; }
   .lead .where { font-size: 11px; font-weight: 700; color: #b3261e; letter-spacing: .8px; margin: 6px 9px 0; }
-  .lead h2 { font-family: "Liberation Serif", serif; font-size: 23px; line-height: 24px; margin: 2px 9px 0; }
-  .lead p { font-size: 12px; line-height: 14.5px; color: #333; margin: 4px 9px 0; }
+  .lead h2 { font-family: "Liberation Serif", serif; font-size: 25.5px; line-height: 26px; margin: 2px 9px 0; }
+  .lead p { font-size: 12px; line-height: 14px; color: #2a2a2a; margin: 3px 9px 0; }
 
   /* cards: two rows of five */
-  .cards { top: 472px; height: 236px; display: grid; grid-template-columns: repeat(5, 1fr); grid-template-rows: 1fr 1fr; gap: 8px; }
+  .cards { top: 472px; height: 246px; display: grid; grid-template-columns: repeat(5, 1fr); grid-template-rows: 1fr 1fr; gap: 8px; }
   .card { background: #fffdf8; border: 1px solid #d8ccb4; overflow: hidden; position: relative; }
-  .card svg { display: block; width: 100%; height: 40px; }
+  .card .pic { position: relative; height: 44px; overflow: hidden; }
+  .card svg { display: block; width: 100%; height: 44px; }
+  .card .ct { position: absolute; left: 0; top: 0; color: #fff; font-weight: 700; font-size: 15px; line-height: 19px; padding: 1px 6px; letter-spacing: .2px; box-shadow: 0 1px 0 rgba(0,0,0,.3); }
   .card .w { font-size: 9.5px; font-weight: 700; letter-spacing: .5px; color: #fff; padding: 1px 5px; white-space: nowrap; overflow: hidden; display: flex; justify-content: space-between; }
   .card .w i { font-style: normal; background: #fff; border-radius: 5px; padding: 0 4px; font-size: 8.5px; line-height: 12px; margin-top: 1px; }
-  .card h3 { font-family: "Liberation Serif", serif; font-size: 14.5px; line-height: 15px; margin: 2px 6px 0; }
+  .card h3 { font-family: "Liberation Serif", serif; font-size: 15px; line-height: 15.5px; margin: 2px 6px 0; }
   .card p { font-size: 10.5px; line-height: 12px; color: #3a3a3a; margin: 1px 6px 0; }
 
   /* map + more */
-  .low { top: 716px; height: 196px; }
-  .map { position: absolute; left: 0; top: 0; width: 340px; height: 196px; background: #dfe9ef; border: 1px solid #b8cad6; }
-  .more { position: absolute; left: 352px; top: 0; width: 640px; height: 196px; }
+  .low { top: 726px; height: 190px; }
+  .map { position: absolute; left: 0; top: 0; width: 340px; height: 190px; background: #1d3557; border: 1px solid #1d3557; }
+  .more { position: absolute; left: 352px; top: 0; width: 640px; height: 190px; }
   .more .h, .map .h { font-size: 11.5px; font-weight: 700; letter-spacing: 1.2px; color: #15171c; }
-  .map .h { position: absolute; left: 6px; top: 4px; }
+  .map .h { position: absolute; left: 6px; top: 4px; color: #fff; }
   .more .h { border-bottom: 2px solid #15171c; padding-bottom: 2px; }
   .more ul { list-style: none; columns: 2; column-gap: 14px; margin-top: 4px; }
-  .more li { font-size: 11.2px; line-height: 19.2px; white-space: nowrap; overflow: hidden; break-inside: avoid; }
+  .more li { font-size: 11.4px; line-height: 18.6px; white-space: nowrap; overflow: hidden; break-inside: avoid; }
   .n { display: inline-block; min-width: 18px; height: 16px; border-radius: 8px; color: #fff; font-size: 10px; font-weight: 700; text-align: center; line-height: 16px; margin-right: 4px; padding: 0 3px; }
 
-  .check { top: 920px; height: 62px; border: 2px solid #b3261e; background: #fff5ec; padding: 4px 8px; font-size: 11.5px; line-height: 14px; }
+  .check { top: 922px; height: 60px; border: 2px solid #b3261e; background: #fff5ec; padding: 4px 8px; font-size: 11.5px; line-height: 14px; }
   .check b.k { color: #b3261e; letter-spacing: 1px; }
   .foot { top: 988px; height: 30px; font-size: 10px; line-height: 13px; color: #555; display: flex; justify-content: space-between; gap: 20px; }
 </style>
@@ -70,7 +73,7 @@
 <div class="band leads" id="leads"></div>
 <div class="band cards" id="cards"></div>
 <div class="band low">
-  <div class="map"><span class="h">WHERE IT HAPPENED · STORIES 1–13</span><svg id="map" width="340" height="196" viewBox="0 0 340 196"></svg></div>
+  <div class="map"><span class="h">WHERE IT HAPPENED · STORIES 1–13</span><svg id="map" width="340" height="190" viewBox="0 0 340 196"></svg></div>
   <div class="more"><div class="h" id="moreh"></div><ul id="more"></ul></div>
 </div>
 <div class="band check" id="check"></div>
@@ -97,14 +100,14 @@ $('kick').textContent = EDITION.kicker;
 $('count').textContent = `${all.length} STORIES · ${order.length} REGIONS · EVERY ONE DATED ${EDITION.date.toUpperCase()}`;
 $('date').textContent = EDITION.date;
 $('deck').textContent = EDITION.deck;
-$('nums').innerHTML = NUMS.map(([v, l]) => `<div class="num"><div class="v">${v}</div><div class="l">${l}</div></div>`).join('');
+$('nums').innerHTML = NUMS.map(([v, r, l]) => `<div class="num" style="border-color:${REG[r][1]}"><div class="v">${v}<i style="background:${REG[r][1]}">${REG[r][0].toUpperCase()}</i></div><div class="l">${l}</div></div>`).join('');
 
 const pin = s => `<span class="n" style="background:${REG[s.region][1]}">${s.n}</span>`;
 $('leads').innerHTML = LEADS.map(s => `<div class="lead">${ART[s.art](300, 118)}<div class="tag">${s.tag}</div><div class="st">${s.status}</div>
   <div class="where">${pin(s)}${s.place}</div><h2>${s.h}</h2><p>${s.p}</p></div>`).join('');
 
 const BADGE = { official: ['OFFICIAL', '#2e7d4f'], reported: ['REPORTED', '#2f5d9a'], claim: ['CLAIM', '#b3261e'] };
-$('cards').innerHTML = CARDS.map(s => `<div class="card">${ART[s.art](190, 40)}
+$('cards').innerHTML = CARDS.map(s => `<div class="card"><div class="pic">${ART[s.art](190, 46)}<span class="ct" style="background:${REG[s.region][1]}">${s.tag}</span></div>
   <div class="w" style="background:${REG[s.region][1]}"><span>${s.n} · ${s.place}</span><i style="color:${BADGE[s.status][1]}">${BADGE[s.status][0]}</i></div>
   <h3>${s.h}</h3><p>${s.p}</p></div>`).join('');
 

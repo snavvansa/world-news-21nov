@@ -57,7 +57,7 @@ const ART = {
     <rect width="190" height="44" fill="#f4e3d0"/>
     <path d="M0 44 L30 14 L52 30 L78 8 L104 30 L126 18 L150 34 L190 20 V44 Z" fill="#a27b55"/>
     <path d="M0 34 h40 l4 -12 l5 22 l5 -30 l5 32 l5 -18 l4 6 h122" stroke="#b3261e" stroke-width="2.2" fill="none"/>
-    ${T(150, 16, 14, '#b3261e', 'M6.7')}`),
+    `),
 
   plane: (w, h) => svg(w, h, '0 0 190 44', `
     <rect width="190" height="44" fill="#dfe9f4"/>
@@ -67,14 +67,14 @@ const ART = {
     <path d="M70 25 L92 14 L98 15 L86 25 Z" fill="#b3261e"/><path d="M32 26 L26 14 L34 14 L42 25 Z" fill="#b3261e"/>
     <path d="M90 27 L76 34 L72 36 L66 31 Z" fill="#f39c32" opacity=".9"/>
     <path d="M108 30 L120 40" stroke="#f3c64d" stroke-width="3"/>
-    ${T(150, 18, 13, '#1e5a3a', '146 SAFE', 'middle')}`),
+    `),
 
   gaza: (w, h) => svg(w, h, '0 0 190 44', `
     <rect width="190" height="44" fill="#e9e0d2"/>
     <path d="M0 44 V26 h22 v-8 h18 v8 h16 v-14 h22 v14 h20 l6 -6 l6 6 h20 v-10 h20 v10 h40 V44 Z" fill="#9a8c78"/>
     <circle cx="70" cy="12" r="9" fill="#888" opacity=".7"/><circle cx="84" cy="7" r="6" fill="#999" opacity=".6"/>
     <path d="M120 44 v-12 l10 -8 l10 8 v12 Z" fill="#c9bfae"/><path d="M136 44 h30 l-6 -10 h-18 Z" fill="#eee"/>
-    ${T(184, 40, 10, '#b3261e', '6 KILLED', 'end')}`),
+    `),
 
   sudan: (w, h) => svg(w, h, '0 0 190 44', `
     <rect width="190" height="44" fill="#f1dfb8"/>
@@ -83,7 +83,7 @@ const ART = {
     <rect x="40" y="18" width="38" height="12" rx="2" fill="#6b6b4a"/><rect x="70" y="14" width="18" height="8" fill="#6b6b4a"/><circle cx="48" cy="31" r="4" fill="#333"/><circle cx="70" cy="31" r="4" fill="#333"/>
     <rect x="130" y="6" width="22" height="14" fill="#d21034"/><rect x="130" y="11" width="22" height="5" fill="#fff"/><rect x="130" y="16" width="22" height="4" fill="#000"/><path d="M130 6 L138 13 L130 20 Z" fill="#007229"/>
     <line x1="130" y1="6" x2="130" y2="30" stroke="#333" stroke-width="2"/>
-    ${T(184, 40, 10, '#6b4b2e', 'BARA', 'end')}`),
+    `),
 
   f1: (w, h) => svg(w, h, '0 0 190 44', `
     <rect width="190" height="44" fill="#141428"/>
@@ -109,14 +109,14 @@ const ART = {
     <path d="M126 16 L134 28 L130 30 L122 18 Z" fill="#6c7380"/>
     ${burst(100, 17, 6)}
     <path d="M100 24 q6 8 0 14" stroke="#555" stroke-width="3" fill="none" opacity=".6"/>
-    ${T(184, 14, 11, '#b3261e', 'No. 58?', 'end')}`),
+    `),
 
   robot: (w, h) => svg(w, h, '0 0 190 44', `
     <rect width="190" height="44" fill="#e3e6ee"/>
-    <rect x="30" y="8" width="26" height="18" rx="4" fill="#5b6475"/><circle cx="38" cy="17" r="3" fill="#b3261e"/><circle cx="48" cy="17" r="3" fill="#b3261e"/>
-    <rect x="26" y="28" width="34" height="16" rx="3" fill="#5b6475"/>
-    <rect x="88" y="12" width="86" height="22" fill="#fff" stroke="#2f5d9a" stroke-width="2"/>
-    ${T(131, 27, 9.5, '#2f5d9a', 'UN RULES BY 2028', 'middle')}`),
+    <rect x="150" y="0" width="26" height="18" rx="4" fill="#5b6475"/><circle cx="158" cy="9" r="3" fill="#b3261e"/><circle cx="168" cy="9" r="3" fill="#b3261e"/>
+    <rect x="40" y="28" width="34" height="16" rx="3" fill="#5b6475"/>
+    <rect x="104" y="22" width="80" height="18" fill="#fff" stroke="#2f5d9a" stroke-width="2"/>
+    ${T(144, 35, 10, '#2f5d9a', 'RULES BY 2028', 'middle')}`),
 
   train: (w, h) => svg(w, h, '0 0 190 44', `
     <rect width="190" height="44" fill="#e6e3dc"/>
@@ -125,14 +125,13 @@ const ART = {
     <rect x="6" y="22" width="40" height="12" fill="#2f5d9a"/><rect x="50" y="22" width="40" height="12" fill="#2f5d9a"/>
     <rect x="96" y="20" width="40" height="12" fill="#a0522d" transform="rotate(14 116 26)"/>
     <rect x="140" y="24" width="40" height="12" fill="#a0522d" transform="rotate(-18 160 30)"/>
-    ${T(184, 16, 10, '#b3261e', '5 CARS OFF', 'end')}`),
+    `),
 
   protest: (w, h) => svg(w, h, '0 0 190 44', `
     <rect width="190" height="44" fill="#e8e4f2"/>
     ${[14, 36, 58, 80, 102, 124, 146, 168].map((x, i) => `<circle cx="${x}" cy="30" r="5" fill="${['#2f5d9a', '#b3261e', '#2e7d4f', '#6b3fa0'][i % 4]}"/><rect x="${x - 5}" y="35" width="10" height="9" fill="${['#2f5d9a', '#b3261e', '#2e7d4f', '#6b3fa0'][i % 4]}"/>`).join('')}
-    <rect x="40" y="4" width="40" height="16" fill="#fff" stroke="#333"/><line x1="60" y1="20" x2="60" y2="26" stroke="#333" stroke-width="2"/>
-    <rect x="110" y="6" width="44" height="14" fill="#fff" stroke="#333"/><line x1="132" y1="20" x2="132" y2="26" stroke="#333" stroke-width="2"/>
-    ${T(60, 15, 8, '#b3261e', 'VIE CHÈRE', 'middle')}${T(132, 16, 8, '#2f5d9a', 'AVENIR', 'middle')}`),
+    <rect x="140" y="4" width="46" height="16" fill="#fff" stroke="#333"/><line x1="163" y1="20" x2="163" y2="26" stroke="#333" stroke-width="2"/>
+    ${T(163, 15, 8, '#b3261e', 'VIE CHÈRE', 'middle')}`),
 };
 
 // ---------- locator map: rough continents drawn from (lon, lat) outlines, equirectangular ----------
@@ -158,13 +157,13 @@ const LAND = [
 function drawMap(stories, REG) {
   const W = 340, H = 196, x = lon => (lon + 170) / 352 * W, y = lat => (72 - lat) / 122 * (H - 22) + 20;
   let s = '';
-  for (let g = -150; g <= 150; g += 30) s += `<line x1="${x(g).toFixed(1)}" y1="18" x2="${x(g).toFixed(1)}" y2="${H}" stroke="#c9d9e4" stroke-width="1"/>`;
-  for (let t = -60; t <= 60; t += 30) s += `<line x1="0" y1="${y(t).toFixed(1)}" x2="${W}" y2="${y(t).toFixed(1)}" stroke="#c9d9e4" stroke-width="1"/>`;
-  s += LAND.map(p => `<polygon points="${p.map(([lo, la]) => `${x(lo).toFixed(1)},${y(la).toFixed(1)}`).join(' ')}" fill="#f2ead8" stroke="#a99a7c" stroke-width=".8"/>`).join('');
+  for (let g = -150; g <= 150; g += 30) s += `<line x1="${x(g).toFixed(1)}" y1="18" x2="${x(g).toFixed(1)}" y2="${H}" stroke="#2c4a70" stroke-width="1"/>`;
+  for (let t = -60; t <= 60; t += 30) s += `<line x1="0" y1="${y(t).toFixed(1)}" x2="${W}" y2="${y(t).toFixed(1)}" stroke="#2c4a70" stroke-width="1"/>`;
+  s += LAND.map(p => `<polygon points="${p.map(([lo, la]) => `${x(lo).toFixed(1)},${y(la).toFixed(1)}`).join(' ')}" fill="#e9e2cf" stroke="#9fb3c8" stroke-width=".8"/>`).join('');
   for (const st of stories) {
     if (!st.at) continue;
-    const [lo, la, dx = 0, dy = 0] = st.at, px = x(lo), py = y(la), bx = px + dx, by = py + dy, r = st.n <= 3 ? 8.5 : 7;
-    if (dx || dy) s += `<line x1="${px.toFixed(1)}" y1="${py.toFixed(1)}" x2="${bx.toFixed(1)}" y2="${by.toFixed(1)}" stroke="#333" stroke-width="1"/><circle cx="${px.toFixed(1)}" cy="${py.toFixed(1)}" r="1.8" fill="#333"/>`;
+    const [lo, la, dx = 0, dy = 0] = st.at, px = x(lo), py = y(la), bx = px + dx, by = py + dy, r = st.n <= 3 ? 9 : 7.5;
+    if (dx || dy) s += `<line x1="${px.toFixed(1)}" y1="${py.toFixed(1)}" x2="${bx.toFixed(1)}" y2="${by.toFixed(1)}" stroke="#fff" stroke-width="1"/><circle cx="${px.toFixed(1)}" cy="${py.toFixed(1)}" r="1.8" fill="#fff"/>`;
     s += `<circle cx="${bx.toFixed(1)}" cy="${by.toFixed(1)}" r="${r}" fill="${REG[st.region][1]}" stroke="#fff" stroke-width="1.5"/>` +
       `<text x="${bx.toFixed(1)}" y="${(by + 3.4).toFixed(1)}" font-size="${st.n > 9 ? 8.5 : 10}" text-anchor="middle" font-weight="700" fill="#fff" font-family="Liberation Sans">${st.n}</text>`;
   }
