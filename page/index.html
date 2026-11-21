@@ -4,146 +4,117 @@
 <meta charset="utf-8">
 <title>Saturday 21 November 2026 — the world's news on one page</title>
 <style>
-  /* One 1024 x 1024 front page. Fonts are the system's Liberation/DejaVu families so the render needs no network. */
+  /* One 1024 x 1024 front page, laid out in absolute bands. System Liberation/DejaVu fonts only: no network. */
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html, body { width: 1024px; height: 1024px; overflow: hidden; }
-  body {
-    background: #f6f1e6;
-    color: #16181d;
-    font-family: "Liberation Sans", "DejaVu Sans", Arial, sans-serif;
-    position: relative;
-  }
-  .serif { font-family: "Liberation Serif", "DejaVu Serif", Georgia, serif; }
+  body { background: #f7f2e7; color: #15171c; font-family: "Liberation Sans", "DejaVu Sans", Arial, sans-serif; position: relative; }
+  .band { position: absolute; left: 16px; width: 992px; }
 
-  /* ---------- masthead ---------- */
-  .top {
-    position: absolute; left: 0; top: 0; width: 1024px; height: 150px;
-    background: #10213a; color: #fff; padding: 10px 22px 0 22px;
-  }
-  .kick { display: flex; justify-content: space-between; font-size: 12.5px; letter-spacing: 1.6px; font-weight: 700; color: #f3c64d; }
-  .kick b { color: #fff; }
-  .date { font-family: "Liberation Serif", "DejaVu Serif", serif; font-weight: 700; font-size: 74px; line-height: 80px; letter-spacing: -1.5px; margin-top: 2px; white-space: nowrap; }
-  .date .day { color: #f3c64d; }
-  .deck { font-size: 16.5px; color: #dfe6f2; margin-top: 1px; white-space: nowrap; }
-  .deck i { color: #f3c64d; font-style: normal; padding: 0 6px; }
+  /* masthead */
+  .kick { top: 8px; height: 19px; display: flex; justify-content: space-between; font-size: 13px; font-weight: 700; letter-spacing: 1.3px; color: #b3261e; border-bottom: 2px solid #15171c; }
+  .kick span:last-child { color: #15171c; }
+  .date { top: 29px; height: 84px; text-align: center; font-family: "Liberation Serif", serif; font-weight: 700; font-size: 82px; line-height: 84px; letter-spacing: -1.5px; white-space: nowrap; }
+  .deck { top: 114px; height: 23px; text-align: center; font-family: "Liberation Serif", serif; font-style: italic; font-size: 18px; color: #2b2f38; border-bottom: 1px solid #15171c; white-space: nowrap; }
 
-  /* ---------- numbers strip ---------- */
-  .nums { position: absolute; left: 14px; top: 158px; width: 996px; height: 62px; display: grid; grid-template-columns: repeat(6, 1fr); gap: 6px; }
-  .num { border-left: 5px solid #c8352b; padding: 1px 0 0 8px; background: #fffaf0; }
-  .num .v { font-family: "Liberation Serif", serif; font-weight: 700; font-size: 27px; line-height: 30px; color: #c8352b; }
-  .num .l { font-size: 11.5px; line-height: 13px; color: #333; }
+  /* numbers */
+  .nums { top: 142px; height: 46px; display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; }
+  .num { border-left: 4px solid #b3261e; padding-left: 7px; }
+  .num .v { font-family: "Liberation Serif", serif; font-weight: 700; font-size: 25px; line-height: 25px; color: #b3261e; }
+  .num .l { font-size: 10.5px; line-height: 11.5px; color: #333; }
 
-  /* ---------- lead stories ---------- */
-  .leads { position: absolute; left: 14px; top: 228px; width: 996px; height: 258px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
-  .lead { background: #fffdf7; border: 1px solid #d9cfba; position: relative; overflow: hidden; }
-  .lead svg { display: block; width: 100%; height: 128px; }
-  .tag { position: absolute; left: 0; top: 0; background: #c8352b; color: #fff; font-weight: 700; font-size: 19px; padding: 4px 10px; letter-spacing: .5px; }
-  .tag.blue { background: #1d4f91; } .tag.green { background: #23704a; } .tag.purple { background: #5b3a8c; } .tag.dark { background: #222; } .tag.orange { background: #b5651d; }
-  .lead .where { font-size: 11.5px; font-weight: 700; color: #c8352b; letter-spacing: 1px; margin: 6px 10px 0 10px; }
-  .lead h2 { font-family: "Liberation Serif", serif; font-size: 23px; line-height: 25px; margin: 2px 10px 0 10px; }
-  .lead p { font-size: 12.5px; line-height: 15px; color: #333; margin: 3px 10px 0 10px; }
-  .pin { display: inline-block; min-width: 17px; height: 17px; border-radius: 9px; background: #10213a; color: #fff; font-size: 11px; font-weight: 700; text-align: center; line-height: 17px; margin-right: 4px; padding: 0 3px; }
+  /* region bar */
+  .regions { top: 193px; height: 19px; display: flex; }
+  .regions div { color: #fff; font-size: 11.5px; font-weight: 700; letter-spacing: .8px; text-align: center; line-height: 19px; white-space: nowrap; overflow: hidden; }
 
-  /* ---------- middle: map + cards ---------- */
-  .mid { position: absolute; left: 14px; top: 494px; width: 996px; height: 352px; }
-  .map { position: absolute; left: 0; top: 0; width: 420px; height: 352px; background: #dce8f0; border: 1px solid #b9cbd8; }
-  .map .cap { position: absolute; left: 8px; top: 6px; font-size: 12px; font-weight: 700; letter-spacing: 1.4px; color: #10213a; }
-  .cards { position: absolute; left: 430px; top: 0; width: 566px; height: 352px; display: grid; grid-template-columns: 1fr 1fr; grid-auto-rows: 1fr; gap: 6px; }
-  .card { background: #fffdf7; border: 1px solid #d9cfba; display: grid; grid-template-columns: 62px 1fr; overflow: hidden; }
-  .card svg { width: 62px; height: 100%; display: block; }
-  .card .t { padding: 3px 6px 0 7px; }
-  .card .w { font-size: 10px; font-weight: 700; letter-spacing: .8px; color: #c8352b; }
-  .card h3 { font-family: "Liberation Serif", serif; font-size: 15px; line-height: 15.5px; margin-top: 1px; }
-  .card p { font-size: 11px; line-height: 12.5px; color: #3a3a3a; margin-top: 1px; }
+  /* leads */
+  .leads { top: 218px; height: 246px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .lead { background: #fffdf8; border: 1px solid #d8ccb4; position: relative; overflow: hidden; }
+  .lead svg { display: block; width: 100%; height: 118px; }
+  .lead .tag { position: absolute; left: 8px; top: 8px; background: #b3261e; color: #fff; font-weight: 700; font-size: 21px; padding: 3px 9px; letter-spacing: .3px; }
+  .lead .st { position: absolute; left: 0; top: 101px; background: rgba(0,0,0,.72); color: #fff; font-size: 10.5px; padding: 2px 6px; }
+  .lead .where { font-size: 11px; font-weight: 700; color: #b3261e; letter-spacing: .8px; margin: 6px 9px 0; }
+  .lead h2 { font-family: "Liberation Serif", serif; font-size: 23px; line-height: 24px; margin: 2px 9px 0; }
+  .lead p { font-size: 12px; line-height: 14.5px; color: #333; margin: 4px 9px 0; }
 
-  /* ---------- bottom: more + date check ---------- */
-  .more { position: absolute; left: 14px; top: 854px; width: 996px; height: 90px; border-top: 3px solid #10213a; padding-top: 4px; }
-  .more .h { font-size: 12px; font-weight: 700; letter-spacing: 1.4px; color: #10213a; }
-  .more ul { list-style: none; columns: 3; column-gap: 18px; margin-top: 3px; }
-  .more li { font-size: 12.5px; line-height: 17px; break-inside: avoid; white-space: nowrap; overflow: hidden; }
-  .more li span.pin { margin-right: 5px; }
-  .more li b { color: #c8352b; }
-  .check { position: absolute; left: 14px; top: 948px; width: 996px; height: 58px; border: 2px solid #c8352b; background: #fff6ee; padding: 4px 8px; font-size: 11.2px; line-height: 13.5px; }
-  .check b.k { color: #c8352b; letter-spacing: 1px; }
-  .foot { position: absolute; left: 14px; top: 1009px; width: 996px; font-size: 9.5px; color: #666; display: flex; justify-content: space-between; }
+  /* cards: two rows of five */
+  .cards { top: 472px; height: 236px; display: grid; grid-template-columns: repeat(5, 1fr); grid-template-rows: 1fr 1fr; gap: 8px; }
+  .card { background: #fffdf8; border: 1px solid #d8ccb4; overflow: hidden; position: relative; }
+  .card svg { display: block; width: 100%; height: 40px; }
+  .card .w { font-size: 9.5px; font-weight: 700; letter-spacing: .5px; color: #fff; padding: 1px 5px; white-space: nowrap; overflow: hidden; display: flex; justify-content: space-between; }
+  .card .w i { font-style: normal; background: #fff; border-radius: 5px; padding: 0 4px; font-size: 8.5px; line-height: 12px; margin-top: 1px; }
+  .card h3 { font-family: "Liberation Serif", serif; font-size: 14.5px; line-height: 15px; margin: 2px 6px 0; }
+  .card p { font-size: 10.5px; line-height: 12px; color: #3a3a3a; margin: 1px 6px 0; }
+
+  /* map + more */
+  .low { top: 716px; height: 196px; }
+  .map { position: absolute; left: 0; top: 0; width: 340px; height: 196px; background: #dfe9ef; border: 1px solid #b8cad6; }
+  .more { position: absolute; left: 352px; top: 0; width: 640px; height: 196px; }
+  .more .h, .map .h { font-size: 11.5px; font-weight: 700; letter-spacing: 1.2px; color: #15171c; }
+  .map .h { position: absolute; left: 6px; top: 4px; }
+  .more .h { border-bottom: 2px solid #15171c; padding-bottom: 2px; }
+  .more ul { list-style: none; columns: 2; column-gap: 14px; margin-top: 4px; }
+  .more li { font-size: 11.2px; line-height: 19.2px; white-space: nowrap; overflow: hidden; break-inside: avoid; }
+  .n { display: inline-block; min-width: 18px; height: 16px; border-radius: 8px; color: #fff; font-size: 10px; font-weight: 700; text-align: center; line-height: 16px; margin-right: 4px; padding: 0 3px; }
+
+  .check { top: 920px; height: 62px; border: 2px solid #b3261e; background: #fff5ec; padding: 4px 8px; font-size: 11.5px; line-height: 14px; }
+  .check b.k { color: #b3261e; letter-spacing: 1px; }
+  .foot { top: 988px; height: 30px; font-size: 10px; line-height: 13px; color: #555; display: flex; justify-content: space-between; gap: 20px; }
 </style>
 </head>
 <body>
-<div class="top">
-  <div class="kick"><span>THE WORLD ON ONE PAGE</span><span><b>NEWS OF ONE DAY ONLY</b> · 7 REGIONS · EVENTS DATED SATURDAY 21 NOVEMBER 2026</span></div>
-  <div class="date"><span class="day">Saturday</span> 21 November 2026</div>
-  <div class="deck">Climate summit runs into extra time<i>■</i>Three missiles downed over Riyadh<i>■</i>Europe–Japan probe reaches Mercury</div>
+<div class="band kick"><span id="kick"></span><span id="count"></span></div>
+<div class="band date" id="date"></div>
+<div class="band deck" id="deck"></div>
+<div class="band nums" id="nums"></div>
+<div class="band regions" id="regions"></div>
+<div class="band leads" id="leads"></div>
+<div class="band cards" id="cards"></div>
+<div class="band low">
+  <div class="map"><span class="h">WHERE IT HAPPENED · STORIES 1–13</span><svg id="map" width="340" height="196" viewBox="0 0 340 196"></svg></div>
+  <div class="more"><div class="h" id="moreh"></div><ul id="more"></ul></div>
 </div>
-
-<div class="nums" id="nums"></div>
-<div class="leads" id="leads"></div>
-
-<div class="mid">
-  <div class="map"><span class="cap">WHERE IT HAPPENED</span><svg id="map" width="420" height="352" viewBox="0 0 420 352"></svg></div>
-  <div class="cards" id="cards"></div>
-</div>
-
-<div class="more"><div class="h">ALSO ON SATURDAY 21 NOVEMBER 2026</div><ul id="more"></ul></div>
-
-<div class="check"><b class="k">DATE CHECK ✓</b> Every story above happened, or was first reported, on Saturday 21 November 2026 (local time where it happened). <b>Left out as earlier news:</b> Trump–Putin–Xi summit in Shenzhen (Thu 19) · ICJ rules Myanmar committed genocide (Thu 19) · S&amp;P 500 and Dow fall into correction (Fri 20) · UK–EU reset deal (Fri 20) · Cyclone Akvan landfall in Odisha (Fri 20) · deadly Kyiv bridge strikes (Fri 20).</div>
-<div class="foot"><span>Claims are attributed to those who made them · tolls and figures as first reported · drawings and map made in code</span><span>Sources: Reuters, AP, AFP, Al Jazeera, Kyiv Post, ESA, USGS/IGP, CAAP</span></div>
+<div class="band check" id="check"></div>
+<div class="band foot" id="foot"></div>
 
 <script src="art.js"></script>
+<script src="data.js"></script>
 <script>
-// ---------- the day's data ----------
-const NUMS = [
-  ['3', 'Houthi ballistic missiles intercepted over Riyadh'],
-  ['6.7', 'magnitude of the deep quake in Junín, Peru'],
-  ['146', 'people safe after a jet\'s engine-fire landing'],
-  ['2028', 'target year for UN rules on "killer robots"'],
-  ['8 yrs', 'BepiColombo\'s journey to Mercury'],
-  ['~200', 'countries still talking at COP31 in Antalya'],
-];
-
-const LEADS = [
-  { n: 1, tag: 'COP31: EXTRA TIME', cls: 'green', where: 'ANTALYA, TÜRKIYE · CLIMATE', art: 'cop',
-    h: 'Climate talks work an extra day with no deal',
-    p: 'Nearly 200 countries stay on past the summit\'s close; the latest draft no longer mentions fossil fuels. (AP, Reuters)' },
-  { n: 2, tag: 'RIYADH: 3 DOWNED', cls: '', where: 'RIYADH, SAUDI ARABIA · WAR', art: 'riyadh',
-    h: 'Coalition shoots down three Houthi missiles',
-    p: 'Second attack on the Saudi capital in days, after its tallest tower was hit on Thursday; alerts sounded twice. (Reuters)' },
-  { n: 3, tag: 'MERCURY: ARRIVAL', cls: 'purple', where: 'SPACE · ESA / JAXA', art: 'mercury',
-    h: 'BepiColombo fires to enter Mercury orbit',
-    p: 'After an eight-year voyage the twin orbiters begin the capture burn; only the second mission ever to orbit Mercury. (ESA)' },
-];
-
-const CARDS = [
-  { n: 4, where: 'JUNÍN, PERU · QUAKE', art: 'quake', h: 'M6.7 quake shakes central Peru', p: 'Deep quake felt in Lima; no deaths reported. (USGS)' },
-  { n: 5, where: 'KYIV, UKRAINE · WAR', art: 'kyiv', h: 'Missile strike sets Kyiv homes ablaze', p: 'Podil homes burn a day after 7 were killed. (Kyiv Post)' },
-  { n: 6, where: 'GENEVA · AI WEAPONS', art: 'robot', h: 'UN talks on "killer robots" end weak', p: 'Rules pledged only by 2028 as Russia objects. (Reuters)' },
-  { n: 7, where: 'DAVAO, PHILIPPINES · AIR', art: 'plane', h: 'Jet lands safely after engine-fire alert', p: 'Air Niugini 767: all 146 on board unhurt. (AP)' },
-  { n: 8, where: 'WELLINGTON · CRICKET', art: 'cricket', h: 'KL Rahul hits a century against NZ', p: 'Day 3 of first Test; India in control. (Wisden)' },
-  { n: 9, where: 'PYONGYANG · DIPLOMACY', art: 'factory', h: 'Kim tours factories, ignores Trump', p: 'Inspects school-supply plants, says state media. (AFP)' },
-  { n: 10, where: 'STRAIT OF HORMUZ · WAR', art: 'drone', h: 'Iran claims 58th US drone downed', p: 'IRGC claim on MQ-9; no US confirmation. (IRNA)' },
-  { n: 11, where: 'TAIPEI · ELECTIONS', art: 'phone', h: 'Taiwan flags 2,700 China-linked accounts', p: 'Reported to Meta before next week\'s polls. (Taipei Times)' },
-];
-
-const MORE = [
-  [12, 'Kryvyi Rih', 'Strike toll rises: 2 dead, 42+ hurt'],
-  [13, 'Gaza', '7 hurt by Israeli fire, strikes (WAFA)'],
-  [14, 'Turin', 'ATP Finals semis: Alcaraz v Shelton'],
-  [15, 'Canberra', 'Australia, China agree AI talks (ABC)'],
-  [16, 'Mexico', 'US-bound migrant caravan arrives (AFP)'],
-  [17, 'Kyiv', 'Zelensky: Crimean Bridge "will not stay"'],
-  [18, 'Crypto', 'Bitcoin slides below $59,000'],
-  [19, 'Las Vegas', 'F1 Grand Prix night race on the Strip'],
-  [20, 'Football', 'Premier League: Man City v Fulham (BBC)'],
-];
-
-// ---------- numbers + lead + card markup ----------
+const REG = {
+  EU: ['Europe', '#2f5d9a'], ME: ['Middle East', '#a0522d'], AF: ['Africa', '#2e7d4f'], AS: ['Asia', '#c0392b'],
+  AM: ['Americas', '#6b3fa0'], OC: ['Oceania', '#13808a'], GL: ['Global', '#4a4f58'],
+};
 const $ = id => document.getElementById(id);
+const all = [...LEADS, ...CARDS, ...MORE];
+all.forEach((s, i) => { s.n = i + 1; });
+
+// Region bar: counts come from the stories themselves, so the bar and the page cannot disagree.
+const counts = {};
+all.forEach(s => { counts[s.region] = (counts[s.region] || 0) + 1; });
+const order = ['EU', 'ME', 'AF', 'AS', 'AM', 'OC', 'GL'].filter(r => counts[r]);
+$('regions').innerHTML = order.map(r => `<div style="background:${REG[r][1]};flex:${counts[r] + 2}">${REG[r][0].toUpperCase()} ${counts[r]}</div>`).join('');
+
+$('kick').textContent = EDITION.kicker;
+$('count').textContent = `${all.length} STORIES · ${order.length} REGIONS · EVERY ONE DATED ${EDITION.date.toUpperCase()}`;
+$('date').textContent = EDITION.date;
+$('deck').textContent = EDITION.deck;
 $('nums').innerHTML = NUMS.map(([v, l]) => `<div class="num"><div class="v">${v}</div><div class="l">${l}</div></div>`).join('');
-$('leads').innerHTML = LEADS.map(s => `<div class="lead">${ART[s.art](300, 128)}<div class="tag ${s.cls}">${s.tag}</div>
-  <div class="where"><span class="pin">${s.n}</span>${s.where}</div><h2>${s.h}</h2><p>${s.p}</p></div>`).join('');
-$('cards').innerHTML = CARDS.map(s => `<div class="card">${ART[s.art](62, 80)}<div class="t">
-  <div class="w"><span class="pin">${s.n}</span>${s.where}</div><h3>${s.h}</h3><p>${s.p}</p></div></div>`).join('');
-$('more').innerHTML = MORE.map(([n, w, t]) => `<li><span class="pin">${n}</span><b>${w}</b> ${t}</li>`).join('');
-drawMap();
+
+const pin = s => `<span class="n" style="background:${REG[s.region][1]}">${s.n}</span>`;
+$('leads').innerHTML = LEADS.map(s => `<div class="lead">${ART[s.art](300, 118)}<div class="tag">${s.tag}</div><div class="st">${s.status}</div>
+  <div class="where">${pin(s)}${s.place}</div><h2>${s.h}</h2><p>${s.p}</p></div>`).join('');
+
+const BADGE = { official: ['OFFICIAL', '#2e7d4f'], reported: ['REPORTED', '#2f5d9a'], claim: ['CLAIM', '#b3261e'] };
+$('cards').innerHTML = CARDS.map(s => `<div class="card">${ART[s.art](190, 40)}
+  <div class="w" style="background:${REG[s.region][1]}"><span>${s.n} · ${s.place}</span><i style="color:${BADGE[s.status][1]}">${BADGE[s.status][0]}</i></div>
+  <h3>${s.h}</h3><p>${s.p}</p></div>`).join('');
+
+$('moreh').textContent = `ALSO ON ${EDITION.date.toUpperCase()} — ${MORE.length} MORE STORIES`;
+$('more').innerHTML = MORE.map(s => `<li>${pin(s)}<b>${s.place}:</b> ${s.t}</li>`).join('');
+
+$('check').innerHTML = `<b class="k">DATE CHECK ✓</b> Every story on this page happened, or was first reported, on <b>${EDITION.date}</b> in at least one time zone. ` +
+  `<b>Left out as earlier news:</b> ${LEFT_OUT} Claims by one side are marked CLAIM; tolls are as first reported.`;
+$('foot').innerHTML = `<span>Sources named beside each story: ${SOURCES}</span><span>Original drawings and map, made in code</span>`;
+drawMap(LEADS.concat(CARDS), REG);
 </script>
 </body>
 </html>

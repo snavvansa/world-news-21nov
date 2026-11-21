@@ -1,170 +1,172 @@
-// Small hand-made SVG drawings for each story, plus the locator map. No images are loaded: every
+// Hand-made SVG drawings for each story, plus the locator map. No images are loaded: every
 // picture is drawn here from shapes, so the page renders the same way offline every time.
+// Lead pictures use a 300 x 118 canvas; card banners use 190 x 44.
 
 const svg = (w, h, vb, body) =>
   `<svg width="${w}" height="${h}" viewBox="${vb}" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">${body}</svg>`;
+const T = (x, y, s, fill, text, anchor = 'start') =>
+  `<text x="${x}" y="${y}" font-size="${s}" font-weight="700" fill="${fill}" text-anchor="${anchor}" font-family="Liberation Sans">${text}</text>`;
+const stars = pts => pts.map(([x, y]) => `<circle cx="${x}" cy="${y}" r="1.1" fill="#fff"/>`).join('');
+const burst = (x, y, r) => `<circle cx="${x}" cy="${y}" r="${r}" fill="#f3c64d"/><circle cx="${x}" cy="${y}" r="${r * .55}" fill="#fff6c9"/>` +
+  [0, 45, 90, 135, 180, 225, 270, 315].map(a => `<line x1="${x}" y1="${y}" x2="${(x + r * 1.6 * Math.cos(a * Math.PI / 180)).toFixed(1)}" y2="${(y + r * 1.6 * Math.sin(a * Math.PI / 180)).toFixed(1)}" stroke="#f39c32" stroke-width="2"/>`).join('');
 
 const ART = {
-  // COP31: a conference table under a clock past its deadline, a globe on the lectern.
-  cop: (w, h) => svg(w, h, '0 0 300 128', `
-    <rect width="300" height="128" fill="#e3efe6"/>
-    <rect x="0" y="96" width="300" height="32" fill="#9fc3ab"/>
-    <circle cx="232" cy="46" r="30" fill="#fff" stroke="#23704a" stroke-width="5"/>
-    <line x1="232" y1="46" x2="232" y2="24" stroke="#16181d" stroke-width="4" stroke-linecap="round"/>
-    <line x1="232" y1="46" x2="250" y2="54" stroke="#c8352b" stroke-width="4" stroke-linecap="round"/>
-    <text x="232" y="92" font-size="11" text-anchor="middle" font-weight="700" fill="#23704a" font-family="Liberation Sans">PAST 6PM CLOSE</text>
-    <rect x="34" y="70" width="150" height="14" rx="3" fill="#6b4b2e"/>
-    ${[118, 178].map(x => `<circle cx="${x}" cy="58" r="9" fill="#2b3a4f"/><rect x="${x - 10}" y="66" width="20" height="10" rx="4" fill="#2b3a4f"/>`).join('')}
-    <rect x="24" y="40" width="80" height="24" fill="#fff" stroke="#c8352b" stroke-width="2"/>
-    <text x="64" y="50" font-size="8.5" text-anchor="middle" font-weight="700" fill="#16181d" font-family="Liberation Sans">DRAFT DEAL</text>
-    <text x="64" y="60" font-size="8.5" text-anchor="middle" font-weight="700" fill="#c8352b" font-family="Liberation Sans" text-decoration="line-through">FOSSIL FUELS</text>
-    <circle cx="150" cy="46" r="13" fill="#3b82c4"/><path d="M140 42 q6 -5 10 1 q5 6 9 1 M142 52 q6 -3 12 1" stroke="#55a35f" stroke-width="4" fill="none"/>`),
+  // ---------- leads (300 x 118) ----------
+  // COP31: delegates at a table, a draft with "fossil fuels" struck out, a clock past the deadline.
+  cop: (w, h) => svg(w, h, '0 0 300 118', `
+    <rect width="300" height="118" fill="#e1eee4"/>
+    <rect x="0" y="92" width="300" height="26" fill="#a7c9b1"/>
+    <rect x="40" y="74" width="170" height="12" rx="3" fill="#6b4b2e"/>
+    ${[66, 102, 138, 174].map(x => `<circle cx="${x}" cy="60" r="8" fill="#2b3a4f"/><rect x="${x - 10}" y="67" width="20" height="9" rx="4" fill="#2b3a4f"/>`).join('')}
+    <g transform="translate(14 30) rotate(-4 110 46)"><rect x="70" y="36" width="82" height="26" fill="#fff" stroke="#b3261e" stroke-width="2"/>
+      ${T(111, 47, 8.5, '#15171c', 'DRAFT TEXT 3', 'middle')}
+      <text x="111" y="58" font-size="8.5" font-weight="700" fill="#b3261e" text-anchor="middle" font-family="Liberation Sans" text-decoration="line-through">FOSSIL FUELS</text></g>
+    <circle cx="250" cy="52" r="28" fill="#fff" stroke="#23704a" stroke-width="5"/>
+    <line x1="250" y1="52" x2="250" y2="32" stroke="#15171c" stroke-width="4" stroke-linecap="round"/>
+    <line x1="250" y1="52" x2="266" y2="60" stroke="#b3261e" stroke-width="4" stroke-linecap="round"/>
+    ${T(250, 98, 10, '#1e5a3a', 'DAY 13 OF 12', 'middle')}`),
 
   // Riyadh: night skyline, three missile trails ending in interceptor bursts.
-  riyadh: (w, h) => svg(w, h, '0 0 300 128', `
-    <rect width="300" height="128" fill="#16213d"/>
-    ${[[20, 4], [70, 12], [140, 6], [210, 18], [270, 9], [110, 30], [250, 40]].map(([x, y]) => `<circle cx="${x}" cy="${y}" r="1.2" fill="#fff"/>`).join('')}
-    ${[[30, 70, 230, 34], [60, 80, 160, 28], [10, 60, 95, 24]].map(([x1, y1, x2, y2]) =>
-      `<path d="M${x1} ${y1 + 40} Q ${(x1 + x2) / 2} ${y2 - 10} ${x2} ${y2}" stroke="#c9cfdb" stroke-width="2.5" fill="none" stroke-dasharray="5 4" opacity=".8"/>
-       <circle cx="${x2}" cy="${y2}" r="11" fill="#f3c64d"/><circle cx="${x2}" cy="${y2}" r="6" fill="#fff6c9"/>
-       ${[0, 45, 90, 135, 180, 225, 270, 315].map(a => `<line x1="${x2}" y1="${y2}" x2="${x2 + 17 * Math.cos(a * Math.PI / 180)}" y2="${y2 + 17 * Math.sin(a * Math.PI / 180)}" stroke="#f39c32" stroke-width="2"/>`).join('')}`).join('')}
-    <path d="M0 128 V104 h20 v-10 h14 v10 h18 v-22 h12 v22 h26 v-14 h16 v14 h30 L150 52 L156 52 L162 96 h22 v-18 h14 v18 h20 v-28 h10 v28 h28 v-12 h16 v12 h30 V128 Z" fill="#0b1020"/>
-    ${[[155, 70], [158, 80], [154, 88], [26, 100], [196, 86], [232, 90]].map(([x, y]) => `<rect x="${x}" y="${y}" width="3" height="3" fill="#f3c64d"/>`).join('')}
-    <text x="290" y="120" font-size="11" text-anchor="end" font-weight="700" fill="#f3c64d" font-family="Liberation Sans">3 INTERCEPTED</text>`),
+  riyadh: (w, h) => svg(w, h, '0 0 300 118', `
+    <rect width="300" height="118" fill="#16213d"/>
+    ${stars([[20, 60], [70, 12], [140, 6], [210, 18], [270, 9], [110, 30], [250, 40]])}
+    ${[[30, 90, 232, 34], [70, 96, 170, 26], [10, 84, 110, 40]].map(([x1, y1, x2, y2]) =>
+      `<path d="M${x1} ${y1} Q ${(x1 + x2) / 2} ${y2 - 18} ${x2} ${y2}" stroke="#c9cfdb" stroke-width="2.5" fill="none" stroke-dasharray="5 4" opacity=".8"/>${burst(x2, y2, 9)}`).join('')}
+    <path d="M0 118 V98 h20 v-10 h14 v10 h18 v-20 h12 v20 h26 v-12 h16 v12 h30 L150 50 L156 50 L162 90 h22 v-16 h14 v16 h20 v-26 h10 v26 h28 v-10 h16 v10 h30 V118 Z" fill="#0b1020"/>
+    ${[[155, 66], [158, 76], [154, 84], [26, 96], [196, 82], [232, 86]].map(([x, y]) => `<rect x="${x}" y="${y}" width="3" height="3" fill="#f3c64d"/>`).join('')}
+    ${T(292, 112, 11, '#f3c64d', '3 INTERCEPTED', 'end')}`),
 
-  // BepiColombo: the craft with its solar wings in front of a big grey Mercury.
-  mercury: (w, h) => svg(w, h, '0 0 300 128', `
-    <rect width="300" height="128" fill="#07090f"/>
-    ${[[14, 14], [40, 100], [90, 20], [130, 112], [180, 10], [280, 118], [270, 30]].map(([x, y]) => `<circle cx="${x}" cy="${y}" r="1.2" fill="#fff"/>`).join('')}
-    <circle cx="230" cy="86" r="74" fill="#8d8a86"/>
-    ${[[200, 50, 9], [250, 70, 13], [215, 110, 7], [268, 112, 10], [190, 86, 5], [240, 40, 6]].map(([x, y, r]) => `<circle cx="${x}" cy="${y}" r="${r}" fill="#74716d"/>`).join('')}
-    <path d="M156 86 a74 74 0 0 0 148 0" fill="#000" opacity=".25"/>
-    <ellipse cx="230" cy="86" rx="112" ry="26" fill="none" stroke="#f3c64d" stroke-width="2" stroke-dasharray="6 5" transform="rotate(-12 230 86)"/>
-    <g transform="translate(86 52) rotate(-12)">
-      <rect x="-56" y="-6" width="42" height="12" fill="#2f4f9a" stroke="#9ab3ea" stroke-width="1"/>
-      <rect x="14" y="-6" width="42" height="12" fill="#2f4f9a" stroke="#9ab3ea" stroke-width="1"/>
-      <rect x="-14" y="-12" width="28" height="24" fill="#d8b04a" stroke="#fff" stroke-width="1"/>
-      <path d="M14 0 L30 -9 L30 9 Z" fill="#ff8a3d" transform="translate(-44 0) scale(-1 1) translate(-30 0)"/>
-    </g>
-    <text x="10" y="118" font-size="11" font-weight="700" fill="#f3c64d" font-family="Liberation Sans">CAPTURE BURN · 21 NOV</text>`),
+  // Kyiv / Kryvyi Rih: dawn city, a burning house, a ballistic trail and an ambulance.
+  kyiv: (w, h) => svg(w, h, '0 0 300 118', `
+    <rect width="300" height="118" fill="#2c2a3a"/>
+    <rect y="70" width="300" height="48" fill="#3d3a4c"/>
+    <circle cx="40" cy="30" r="14" fill="#e9a05a" opacity=".55"/>
+    <path d="M300 4 Q 230 10 196 54" stroke="#c9cfdb" stroke-width="2.5" stroke-dasharray="5 4" fill="none"/>
+    <path d="M150 118 V68 l26 -20 l26 20 V118 Z" fill="#59506a"/>
+    <path d="M156 70 q8 -30 16 -8 q6 -26 12 -2 q6 -16 8 8 Z" fill="#f39c32"/><path d="M162 70 q6 -16 10 -4 q5 -14 9 2 Z" fill="#f3c64d"/>
+    <circle cx="170" cy="30" r="13" fill="#6b6b6b" opacity=".75"/><circle cx="188" cy="20" r="10" fill="#777" opacity=".65"/>
+    <path d="M60 118 V56 h40 V118 Z" fill="#4a4558"/><path d="M214 118 V60 h50 V118 Z" fill="#4a4558"/>
+    ${[[68, 66], [84, 66], [68, 82], [84, 82], [222, 70], [240, 70], [222, 86], [248, 86]].map(([x, y]) => `<rect x="${x}" y="${y}" width="8" height="8" fill="#f3c64d" opacity=".85"/>`).join('')}
+    <rect x="20" y="92" width="42" height="18" rx="3" fill="#fff"/><rect x="50" y="86" width="12" height="10" fill="#fff"/>
+    <rect x="34" y="96" width="4" height="10" fill="#b3261e"/><rect x="31" y="99" width="10" height="4" fill="#b3261e"/>
+    <circle cx="30" cy="111" r="4" fill="#222"/><circle cx="54" cy="111" r="4" fill="#222"/>
+    <rect x="270" y="80" width="22" height="14" fill="#0057b7"/><rect x="270" y="87" width="22" height="7" fill="#ffd700"/>`),
 
-  quake: (w, h) => svg(w, h, '0 0 62 76', `
-    <rect width="62" height="76" fill="#f4e3d0"/>
-    <path d="M0 52 L14 30 L24 42 L34 22 L48 44 L62 34 V76 H0 Z" fill="#a27b55"/>
-    <path d="M2 64 h8 l3 -10 l4 18 l4 -24 l4 26 l4 -14 l3 4 h28" stroke="#c8352b" stroke-width="2.2" fill="none"/>
-    <text x="31" y="16" font-size="13" text-anchor="middle" font-weight="700" fill="#c8352b" font-family="Liberation Sans">6.7</text>`),
+  // ---------- card banners (190 x 44) ----------
+  quake: (w, h) => svg(w, h, '0 0 190 44', `
+    <rect width="190" height="44" fill="#f4e3d0"/>
+    <path d="M0 44 L30 14 L52 30 L78 8 L104 30 L126 18 L150 34 L190 20 V44 Z" fill="#a27b55"/>
+    <path d="M0 34 h40 l4 -12 l5 22 l5 -30 l5 32 l5 -18 l4 6 h122" stroke="#b3261e" stroke-width="2.2" fill="none"/>
+    ${T(150, 16, 14, '#b3261e', 'M6.7')}`),
 
-  kyiv: (w, h) => svg(w, h, '0 0 62 76', `
-    <rect width="62" height="76" fill="#2a2633"/>
-    <path d="M10 76 V44 l12 -10 l12 10 V76 Z" fill="#4a4250"/>
-    <path d="M36 76 V50 l10 -8 l10 8 V76 Z" fill="#4a4250"/>
-    <path d="M14 46 q6 -18 10 -6 q4 -16 8 0 q4 -10 4 6 Z" fill="#f39c32"/><path d="M18 46 q4 -10 7 -2 q3 -8 5 2 Z" fill="#f3c64d"/>
-    <circle cx="22" cy="20" r="10" fill="#555" opacity=".7"/><circle cx="34" cy="14" r="8" fill="#555" opacity=".6"/>
-    <rect x="16" y="56" width="5" height="6" fill="#f3c64d"/><rect x="42" y="58" width="5" height="6" fill="#f3c64d"/>`),
+  plane: (w, h) => svg(w, h, '0 0 190 44', `
+    <rect width="190" height="44" fill="#dfe9f4"/>
+    <rect y="32" width="190" height="12" fill="#7d8691"/>
+    <line x1="0" y1="38" x2="190" y2="38" stroke="#fff" stroke-width="2" stroke-dasharray="8 6"/>
+    <path d="M30 26 L120 22 Q134 22 132 27 L36 31 Z" fill="#fff" stroke="#333" stroke-width="1"/>
+    <path d="M70 25 L92 14 L98 15 L86 25 Z" fill="#b3261e"/><path d="M32 26 L26 14 L34 14 L42 25 Z" fill="#b3261e"/>
+    <path d="M90 27 L76 34 L72 36 L66 31 Z" fill="#f39c32" opacity=".9"/>
+    <path d="M108 30 L120 40" stroke="#f3c64d" stroke-width="3"/>
+    ${T(150, 18, 13, '#1e5a3a', '146 SAFE', 'middle')}`),
 
-  robot: (w, h) => svg(w, h, '0 0 62 76', `
-    <rect width="62" height="76" fill="#e3e6ee"/>
-    <rect x="17" y="14" width="28" height="22" rx="4" fill="#5b6475"/>
-    <circle cx="25" cy="25" r="3.5" fill="#c8352b"/><circle cx="37" cy="25" r="3.5" fill="#c8352b"/>
-    <line x1="31" y1="14" x2="31" y2="6" stroke="#5b6475" stroke-width="2"/><circle cx="31" cy="5" r="2.5" fill="#c8352b"/>
-    <rect x="14" y="40" width="34" height="26" rx="3" fill="#5b6475"/>
-    <rect x="4" y="44" width="54" height="10" fill="#fff" stroke="#1d4f91" stroke-width="1.5" transform="rotate(-10 31 49)"/>
-    <text x="31" y="52" font-size="7.5" text-anchor="middle" font-weight="700" fill="#1d4f91" font-family="Liberation Sans" transform="rotate(-10 31 49)">UN · 2028</text>`),
+  gaza: (w, h) => svg(w, h, '0 0 190 44', `
+    <rect width="190" height="44" fill="#e9e0d2"/>
+    <path d="M0 44 V26 h22 v-8 h18 v8 h16 v-14 h22 v14 h20 l6 -6 l6 6 h20 v-10 h20 v10 h40 V44 Z" fill="#9a8c78"/>
+    <circle cx="70" cy="12" r="9" fill="#888" opacity=".7"/><circle cx="84" cy="7" r="6" fill="#999" opacity=".6"/>
+    <path d="M120 44 v-12 l10 -8 l10 8 v12 Z" fill="#c9bfae"/><path d="M136 44 h30 l-6 -10 h-18 Z" fill="#eee"/>
+    ${T(184, 40, 10, '#b3261e', '6 KILLED', 'end')}`),
 
-  plane: (w, h) => svg(w, h, '0 0 62 76', `
-    <rect width="62" height="76" fill="#dfe9f4"/>
-    <rect x="0" y="56" width="62" height="20" fill="#7d8691"/>
-    <line x1="4" y1="66" x2="58" y2="66" stroke="#fff" stroke-width="2" stroke-dasharray="6 5"/>
-    <path d="M6 48 L48 42 Q58 42 56 47 L10 54 Z" fill="#fff" stroke="#333" stroke-width="1"/>
-    <path d="M24 46 L40 36 L44 37 L34 46 Z" fill="#c8352b"/>
-    <path d="M8 48 L4 38 L10 38 L16 47 Z" fill="#c8352b"/>
-    <path d="M38 47 L44 58 L41 59 L33 48 Z" fill="#f3c64d"/>
-    <text x="31" y="20" font-size="11" text-anchor="middle" font-weight="700" fill="#23704a" font-family="Liberation Sans">146 OK</text>`),
+  sudan: (w, h) => svg(w, h, '0 0 190 44', `
+    <rect width="190" height="44" fill="#f1dfb8"/>
+    <rect y="30" width="190" height="14" fill="#d8b77c"/>
+    <path d="M0 32 Q 60 26 100 32 T 190 30" stroke="#8a6a3a" stroke-width="3" fill="none" stroke-dasharray="7 5"/>
+    <rect x="40" y="18" width="38" height="12" rx="2" fill="#6b6b4a"/><rect x="70" y="14" width="18" height="8" fill="#6b6b4a"/><circle cx="48" cy="31" r="4" fill="#333"/><circle cx="70" cy="31" r="4" fill="#333"/>
+    <rect x="130" y="6" width="22" height="14" fill="#d21034"/><rect x="130" y="11" width="22" height="5" fill="#fff"/><rect x="130" y="16" width="22" height="4" fill="#000"/><path d="M130 6 L138 13 L130 20 Z" fill="#007229"/>
+    <line x1="130" y1="6" x2="130" y2="30" stroke="#333" stroke-width="2"/>
+    ${T(184, 40, 10, '#6b4b2e', 'BARA', 'end')}`),
 
-  cricket: (w, h) => svg(w, h, '0 0 62 76', `
-    <rect width="62" height="76" fill="#cfe8c4"/>
-    <rect x="22" y="0" width="18" height="76" fill="#d9c79a"/>
-    <rect x="25" y="52" width="3" height="18" fill="#fff"/><rect x="30" y="52" width="3" height="18" fill="#fff"/><rect x="35" y="52" width="3" height="18" fill="#fff"/>
-    <rect x="12" y="10" width="7" height="34" rx="2" fill="#c49a5a" transform="rotate(25 15 27)"/>
-    <circle cx="44" cy="22" r="5" fill="#b3201a"/>
-    <text x="31" y="49" font-size="12" text-anchor="middle" font-weight="700" fill="#10213a" font-family="Liberation Sans">100</text>`),
+  f1: (w, h) => svg(w, h, '0 0 190 44', `
+    <rect width="190" height="44" fill="#141428"/>
+    ${stars([[12, 6], [60, 10], [120, 5], [170, 12]])}
+    <rect y="30" width="190" height="14" fill="#333"/>
+    ${[0, 16, 32, 48, 64, 80].map(x => `<rect x="${x}" y="30" width="8" height="4" fill="#fff"/><rect x="${x + 8}" y="30" width="8" height="4" fill="#b3261e"/>`).join('')}
+    <path d="M40 30 l6 -8 h46 l14 4 h14 v4 Z" fill="#1e3a8a"/><rect x="88" y="17" width="6" height="6" fill="#f3c64d"/>
+    <circle cx="52" cy="31" r="5" fill="#111"/><circle cx="110" cy="31" r="5" fill="#111"/>
+    ${T(182, 24, 13, '#f3c64d', 'P1', 'end')}`),
 
-  factory: (w, h) => svg(w, h, '0 0 62 76', `
-    <rect width="62" height="76" fill="#ece5d6"/>
-    <path d="M4 70 V44 l14 -8 v8 l14 -8 v8 l14 -8 V70 Z" fill="#7a6a5a"/>
-    <rect x="48" y="22" width="8" height="48" fill="#5c5046"/>
-    <circle cx="52" cy="16" r="5" fill="#bbb"/><circle cx="46" cy="8" r="4" fill="#ccc"/>
-    <rect x="10" y="52" width="6" height="6" fill="#f3c64d"/><rect x="24" y="52" width="6" height="6" fill="#f3c64d"/><rect x="38" y="52" width="6" height="6" fill="#f3c64d"/>
-    <text x="20" y="22" font-size="9" text-anchor="middle" font-weight="700" fill="#c8352b" font-family="Liberation Sans">DPRK</text>`),
+  cricket: (w, h) => svg(w, h, '0 0 190 44', `
+    <rect width="190" height="44" fill="#cfe8c4"/>
+    <rect x="70" y="0" width="56" height="44" fill="#d9c79a"/>
+    ${[84, 90, 96].map(x => `<rect x="${x}" y="22" width="3" height="18" fill="#fff"/>`).join('')}
+    <rect x="40" y="6" width="7" height="32" rx="2" fill="#c49a5a" transform="rotate(30 43 22)"/>
+    <circle cx="140" cy="16" r="5" fill="#b3201a"/>
+    ${T(184, 38, 13, '#15171c', '486-4', 'end')}`),
 
-  drone: (w, h) => svg(w, h, '0 0 62 76', `
-    <rect width="62" height="76" fill="#cfe0ea"/>
-    <rect x="0" y="54" width="62" height="22" fill="#3d7ea6"/>
-    <path d="M8 30 L54 26 L54 30 L8 34 Z" fill="#6c7380"/>
-    <path d="M22 24 L44 22 L46 36 L24 38 Z" fill="#8a909b"/>
-    <path d="M44 30 L52 46 L48 48 L40 32 Z" fill="#6c7380"/>
-    <circle cx="40" cy="30" r="7" fill="#f39c32" opacity=".85"/><circle cx="40" cy="30" r="3" fill="#fff6c9"/>
-    <path d="M40 38 q4 10 -2 18" stroke="#555" stroke-width="3" fill="none" opacity=".6"/>`),
+  drone: (w, h) => svg(w, h, '0 0 190 44', `
+    <rect width="190" height="44" fill="#cfe0ea"/>
+    <rect y="32" width="190" height="12" fill="#3d7ea6"/>
+    <path d="M40 18 L130 14 L130 18 L40 22 Z" fill="#6c7380"/><path d="M70 12 L104 11 L106 24 L72 25 Z" fill="#8a909b"/>
+    <path d="M126 16 L134 28 L130 30 L122 18 Z" fill="#6c7380"/>
+    ${burst(100, 17, 6)}
+    <path d="M100 24 q6 8 0 14" stroke="#555" stroke-width="3" fill="none" opacity=".6"/>
+    ${T(184, 14, 11, '#b3261e', 'No. 58?', 'end')}`),
 
-  phone: (w, h) => svg(w, h, '0 0 62 76', `
-    <rect width="62" height="76" fill="#e8e1f0"/>
-    <rect x="16" y="10" width="30" height="56" rx="5" fill="#2b2b34"/>
-    <rect x="19" y="16" width="24" height="42" fill="#fff"/>
-    ${[20, 28, 36, 44].map(y => `<circle cx="24" cy="${y + 2}" r="3" fill="#888"/><rect x="29" y="${y}" width="11" height="3" fill="#bbb"/>`).join('')}
-    <circle cx="44" cy="54" r="10" fill="none" stroke="#c8352b" stroke-width="3"/><line x1="37" y1="61" x2="51" y2="47" stroke="#c8352b" stroke-width="3"/>`),
+  robot: (w, h) => svg(w, h, '0 0 190 44', `
+    <rect width="190" height="44" fill="#e3e6ee"/>
+    <rect x="30" y="8" width="26" height="18" rx="4" fill="#5b6475"/><circle cx="38" cy="17" r="3" fill="#b3261e"/><circle cx="48" cy="17" r="3" fill="#b3261e"/>
+    <rect x="26" y="28" width="34" height="16" rx="3" fill="#5b6475"/>
+    <rect x="88" y="12" width="86" height="22" fill="#fff" stroke="#2f5d9a" stroke-width="2"/>
+    ${T(131, 27, 9.5, '#2f5d9a', 'UN RULES BY 2028', 'middle')}`),
+
+  train: (w, h) => svg(w, h, '0 0 190 44', `
+    <rect width="190" height="44" fill="#e6e3dc"/>
+    <line x1="0" y1="36" x2="190" y2="36" stroke="#555" stroke-width="2"/><line x1="0" y1="40" x2="190" y2="40" stroke="#555" stroke-width="2"/>
+    <line x1="0" y1="8" x2="190" y2="8" stroke="#333" stroke-width="1"/>
+    <rect x="6" y="22" width="40" height="12" fill="#2f5d9a"/><rect x="50" y="22" width="40" height="12" fill="#2f5d9a"/>
+    <rect x="96" y="20" width="40" height="12" fill="#a0522d" transform="rotate(14 116 26)"/>
+    <rect x="140" y="24" width="40" height="12" fill="#a0522d" transform="rotate(-18 160 30)"/>
+    ${T(184, 16, 10, '#b3261e', '5 CARS OFF', 'end')}`),
+
+  protest: (w, h) => svg(w, h, '0 0 190 44', `
+    <rect width="190" height="44" fill="#e8e4f2"/>
+    ${[14, 36, 58, 80, 102, 124, 146, 168].map((x, i) => `<circle cx="${x}" cy="30" r="5" fill="${['#2f5d9a', '#b3261e', '#2e7d4f', '#6b3fa0'][i % 4]}"/><rect x="${x - 5}" y="35" width="10" height="9" fill="${['#2f5d9a', '#b3261e', '#2e7d4f', '#6b3fa0'][i % 4]}"/>`).join('')}
+    <rect x="40" y="4" width="40" height="16" fill="#fff" stroke="#333"/><line x1="60" y1="20" x2="60" y2="26" stroke="#333" stroke-width="2"/>
+    <rect x="110" y="6" width="44" height="14" fill="#fff" stroke="#333"/><line x1="132" y1="20" x2="132" y2="26" stroke="#333" stroke-width="2"/>
+    ${T(60, 15, 8, '#b3261e', 'VIE CHÈRE', 'middle')}${T(132, 16, 8, '#2f5d9a', 'AVENIR', 'middle')}`),
 };
 
 // ---------- locator map: rough continents drawn from (lon, lat) outlines, equirectangular ----------
 const LAND = [
-  // North America
   [[-168, 66], [-140, 70], [-95, 72], [-80, 64], [-62, 58], [-55, 48], [-67, 45], [-76, 35], [-81, 26], [-90, 29], [-97, 26], [-97, 18], [-88, 15], [-80, 8], [-86, 12], [-105, 20], [-112, 30], [-124, 40], [-124, 48], [-135, 57], [-152, 59], [-165, 60]],
-  // Greenland
   [[-52, 60], [-42, 60], [-20, 70], [-20, 80], [-60, 82], [-72, 77], [-56, 70]],
-  // South America
   [[-80, 8], [-60, 10], [-50, 0], [-35, -6], [-38, -14], [-48, -26], [-58, -36], [-66, -46], [-70, -54], [-74, -48], [-72, -30], [-71, -18], [-81, -6]],
-  // Europe
   [[-10, 36], [-9, 43], [-2, 44], [-4, 48], [5, 52], [9, 57], [5, 62], [14, 68], [28, 71], [42, 68], [40, 60], [30, 56], [40, 48], [28, 41], [22, 37], [16, 38], [12, 44], [8, 44], [3, 42], [0, 38]],
-  // Africa
   [[-17, 21], [-12, 29], [-6, 35], [10, 37], [20, 32], [32, 31], [35, 24], [43, 12], [51, 11], [42, -2], [40, -14], [35, -24], [27, -34], [18, -34], [12, -16], [13, -2], [8, 4], [-8, 4], [-16, 12]],
-  // Asia
   [[28, 41], [36, 36], [35, 30], [42, 16], [52, 16], [57, 22], [56, 26], [62, 25], [68, 23], [72, 20], [77, 8], [80, 15], [88, 22], [92, 22], [98, 16], [100, 4], [104, 2], [106, 10], [109, 20], [118, 24], [122, 30], [121, 40], [128, 38], [130, 43], [140, 48], [143, 54], [135, 56], [158, 62], [180, 66], [180, 72], [140, 74], [110, 77], [80, 74], [60, 70], [42, 68], [40, 60], [30, 56], [40, 48], [44, 42]],
-  // Arabian gulf cut-in is implied; Japan
   [[130, 31], [134, 34], [140, 36], [142, 40], [141, 44], [138, 38], [132, 34]],
-  // UK
   [[-5, 50], [1, 51], [0, 54], [-3, 58], [-6, 57], [-4, 53]],
-  // Indonesia / Philippines / PNG
   [[95, 5], [104, -6], [114, -8], [120, -9], [106, -2], [100, 2]],
   [[110, 2], [118, 6], [119, 0], [116, -4], [110, -2]],
   [[121, 18], [126, 12], [126, 7], [122, 7], [120, 14]],
   [[131, -1], [141, -3], [150, -10], [143, -9], [136, -4]],
-  // Australia / NZ
   [[114, -22], [122, -18], [130, -12], [137, -12], [142, -11], [146, -19], [153, -26], [150, -37], [140, -38], [131, -31], [116, -35], [114, -28]],
   [[172, -34], [178, -38], [174, -42], [167, -46], [172, -40]],
 ];
 
-// Story pins on the map: [number, lon, lat, label]
-const PINS = [
-  [1, 30.7, 36.9, 'Antalya'], [2, 46.7, 24.7, 'Riyadh'], [4, -75.8, -11.0, 'Junín'], [5, 30.5, 50.5, 'Kyiv'],
-  [6, 6.1, 46.2, 'Geneva'], [7, 125.6, 7.1, 'Davao'], [8, 174.8, -41.3, 'Wellington'], [9, 125.7, 39.0, 'Pyongyang'],
-  [10, 56.3, 26.6, 'Hormuz'], [11, 121.5, 25.0, 'Taipei'],
-];
-
-function drawMap() {
-  const W = 420, H = 352, x = lon => (lon + 170) / 352 * W, y = lat => (74 - lat) / 124 * (H - 24) + 22;
+// Pins come from each story's `at` [lon, lat, side]; side 'l' puts the number's offset to the left
+// where neighbours crowd. Numbers only (the list beside the map names each one).
+function drawMap(stories, REG) {
+  const W = 340, H = 196, x = lon => (lon + 170) / 352 * W, y = lat => (72 - lat) / 122 * (H - 22) + 20;
   let s = '';
-  for (let g = -150; g <= 150; g += 30) s += `<line x1="${x(g)}" y1="18" x2="${x(g)}" y2="${H}" stroke="#c4d6e2" stroke-width="1"/>`;
-  for (let t = -60; t <= 60; t += 30) s += `<line x1="0" y1="${y(t)}" x2="${W}" y2="${y(t)}" stroke="#c4d6e2" stroke-width="1"/>`;
-  s += LAND.map(p => `<polygon points="${p.map(([lo, la]) => `${x(lo).toFixed(1)},${y(la).toFixed(1)}`).join(' ')}" fill="#f2ead8" stroke="#a99a7c" stroke-width="1"/>`).join('');
-  // BepiColombo (3) has no place on Earth: a corner badge says so.
-  s += `<g><circle cx="${W - 72}" cy="14" r="9" fill="#5b3a8c"/><text x="${W - 72}" y="18" font-size="11" text-anchor="middle" font-weight="700" fill="#fff" font-family="Liberation Sans">3</text>
-        <text x="${W - 60}" y="18" font-size="10.5" font-weight="700" fill="#5b3a8c" font-family="Liberation Sans">Mercury</text></g>`;
-  for (const [n, lo, la, name] of PINS) {
-    const px = x(lo), py = y(la), lead = n <= 3, r = lead ? 9.5 : 8;
-    const left = lo > 150 || n === 7 || n === 2;
-    const dy = n === 10 ? 12 : n === 2 ? 3 : n === 1 ? -2 : 0;
-    s += `<circle cx="${px}" cy="${py}" r="${r}" fill="${lead ? '#c8352b' : '#10213a'}" stroke="#fff" stroke-width="1.5"/>
-      <text x="${px}" y="${py + 3.8}" font-size="${n > 9 ? 9.5 : 11}" text-anchor="middle" font-weight="700" fill="#fff" font-family="Liberation Sans">${n}</text>
-      <text x="${left ? px - r - 2 : px + r + 2}" y="${py + 3.5 + dy}" font-size="10" text-anchor="${left ? 'end' : 'start'}" font-weight="700" fill="#10213a" font-family="Liberation Sans" stroke="#dce8f0" stroke-width="3" paint-order="stroke">${name}</text>`;
+  for (let g = -150; g <= 150; g += 30) s += `<line x1="${x(g).toFixed(1)}" y1="18" x2="${x(g).toFixed(1)}" y2="${H}" stroke="#c9d9e4" stroke-width="1"/>`;
+  for (let t = -60; t <= 60; t += 30) s += `<line x1="0" y1="${y(t).toFixed(1)}" x2="${W}" y2="${y(t).toFixed(1)}" stroke="#c9d9e4" stroke-width="1"/>`;
+  s += LAND.map(p => `<polygon points="${p.map(([lo, la]) => `${x(lo).toFixed(1)},${y(la).toFixed(1)}`).join(' ')}" fill="#f2ead8" stroke="#a99a7c" stroke-width=".8"/>`).join('');
+  for (const st of stories) {
+    if (!st.at) continue;
+    const [lo, la, dx = 0, dy = 0] = st.at, px = x(lo), py = y(la), bx = px + dx, by = py + dy, r = st.n <= 3 ? 8.5 : 7;
+    if (dx || dy) s += `<line x1="${px.toFixed(1)}" y1="${py.toFixed(1)}" x2="${bx.toFixed(1)}" y2="${by.toFixed(1)}" stroke="#333" stroke-width="1"/><circle cx="${px.toFixed(1)}" cy="${py.toFixed(1)}" r="1.8" fill="#333"/>`;
+    s += `<circle cx="${bx.toFixed(1)}" cy="${by.toFixed(1)}" r="${r}" fill="${REG[st.region][1]}" stroke="#fff" stroke-width="1.5"/>` +
+      `<text x="${bx.toFixed(1)}" y="${(by + 3.4).toFixed(1)}" font-size="${st.n > 9 ? 8.5 : 10}" text-anchor="middle" font-weight="700" fill="#fff" font-family="Liberation Sans">${st.n}</text>`;
   }
   document.getElementById('map').innerHTML = s;
 }
