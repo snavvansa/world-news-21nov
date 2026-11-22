@@ -52,7 +52,53 @@ const ART = {
     <circle cx="30" cy="111" r="4" fill="#222"/><circle cx="54" cy="111" r="4" fill="#222"/>
     <rect x="270" y="80" width="22" height="14" fill="#0057b7"/><rect x="270" y="87" width="22" height="7" fill="#ffd700"/>`),
 
+  // BepiColombo: the stacked craft on a dashed capture orbit around a big cratered Mercury.
+  mercury: (w, h) => svg(w, h, '0 0 300 118', `
+    <rect width="300" height="118" fill="#07090f"/>
+    ${stars([[14, 14], [40, 100], [90, 20], [130, 108], [60, 60], [24, 44], [110, 6]])}
+    <circle cx="234" cy="70" r="66" fill="#8d8a86"/>
+    ${[[206, 38, 9], [252, 56, 12], [218, 100, 7], [270, 98, 9], [196, 72, 5], [244, 30, 6], [232, 78, 4]].map(([x, y, r]) => `<circle cx="${x}" cy="${y}" r="${r}" fill="#74716d"/>`).join('')}
+    <path d="M168 70 a66 66 0 0 0 132 0" fill="#000" opacity=".25"/>
+    <ellipse cx="234" cy="70" rx="104" ry="30" fill="none" stroke="#f3c64d" stroke-width="2" stroke-dasharray="6 5" transform="rotate(-14 234 70)"/>
+    <g transform="translate(96 74) rotate(-14)">
+      <rect x="-60" y="-6" width="44" height="12" fill="#2f4f9a" stroke="#9ab3ea" stroke-width="1"/>
+      <rect x="16" y="-6" width="44" height="12" fill="#2f4f9a" stroke="#9ab3ea" stroke-width="1"/>
+      <rect x="-16" y="-13" width="32" height="26" fill="#d8b04a" stroke="#fff" stroke-width="1"/>
+      <circle cx="0" cy="0" r="5" fill="#fff6c9"/>
+    </g>
+    ${T(292, 112, 11, '#f3c64d', 'ORBIT ENTRY · SAT 21 NOV', 'end')}`),
+
   // ---------- card banners (190 x 44) ----------
+  copc: (w, h) => svg(w, h, '0 0 190 44', `
+    <rect width="190" height="44" fill="#e1eee4"/>
+    <rect y="34" width="190" height="10" fill="#a7c9b1"/>
+    <rect x="112" y="22" width="72" height="18" fill="#fff" stroke="#b3261e" stroke-width="2" transform="rotate(-4 148 31)"/>
+    <text x="148" y="35" font-size="9" font-weight="700" fill="#b3261e" text-anchor="middle" font-family="Liberation Sans" text-decoration="line-through" transform="rotate(-4 148 31)">FOSSIL FUELS</text>
+    <circle cx="170" cy="36" r="0" fill="none"/>
+    ${[40, 62].map(x => `<circle cx="${x}" cy="28" r="6" fill="#2b3a4f"/><rect x="${x - 8}" y="33" width="16" height="11" rx="3" fill="#2b3a4f"/>`).join('')}`),
+
+  cartel: (w, h) => svg(w, h, '0 0 190 44', `
+    <rect width="190" height="44" fill="#f1e3c8"/>
+    <rect y="34" width="190" height="10" fill="#b99a6a"/>
+    <path d="M30 34 h40 l-4 -10 h-30 Z" fill="#3a3a3a"/><circle cx="38" cy="35" r="4" fill="#111"/><circle cx="62" cy="35" r="4" fill="#111"/>
+    <path d="M40 24 q6 -18 12 -4 q4 -12 8 2" fill="#f39c32"/><circle cx="56" cy="10" r="7" fill="#777" opacity=".7"/>
+    <path d="M120 10 h40 l8 6 h-56 Z" fill="#4a5a3a"/><line x1="108" y1="8" x2="176" y2="8" stroke="#333" stroke-width="2"/>
+    <rect x="132" y="16" width="20" height="8" fill="#4a5a3a"/>`),
+
+  nato: (w, h) => svg(w, h, '0 0 190 44', `
+    <rect width="190" height="44" fill="#dfe6f2"/>
+    <rect x="24" y="24" width="40" height="10" fill="#fff" stroke="#999"/><rect x="24" y="34" width="40" height="10" fill="#dc143c"/>
+    <circle cx="168" cy="30" r="13" fill="#1d3a73"/>
+    <path d="M168 19 L170.5 30 L168 41 L165.5 30 Z M157 30 L168 27.5 L179 30 L168 32.5 Z" fill="#fff"/>`),
+
+  tennis: (w, h) => svg(w, h, '0 0 190 44', `
+    <rect width="190" height="44" fill="#2b5c9e"/>
+    <rect x="10" y="6" width="170" height="34" fill="none" stroke="#fff" stroke-width="1.5"/>
+    <line x1="95" y1="6" x2="95" y2="40" stroke="#fff" stroke-width="2"/>
+    <line x1="10" y1="23" x2="180" y2="23" stroke="#fff" stroke-width="1"/>
+    <circle cx="140" cy="16" r="5" fill="#d6f23a"/>
+    <ellipse cx="50" cy="18" rx="9" ry="11" fill="none" stroke="#f3c64d" stroke-width="2.5" transform="rotate(30 50 18)"/><line x1="56" y1="27" x2="64" y2="38" stroke="#f3c64d" stroke-width="3"/>`),
+
   quake: (w, h) => svg(w, h, '0 0 190 44', `
     <rect width="190" height="44" fill="#f4e3d0"/>
     <path d="M0 44 L30 14 L52 30 L78 8 L104 30 L126 18 L150 34 L190 20 V44 Z" fill="#a27b55"/>
@@ -92,7 +138,7 @@ const ART = {
     ${[0, 16, 32, 48, 64, 80].map(x => `<rect x="${x}" y="30" width="8" height="4" fill="#fff"/><rect x="${x + 8}" y="30" width="8" height="4" fill="#b3261e"/>`).join('')}
     <path d="M40 30 l6 -8 h46 l14 4 h14 v4 Z" fill="#1e3a8a"/><rect x="88" y="17" width="6" height="6" fill="#f3c64d"/>
     <circle cx="52" cy="31" r="5" fill="#111"/><circle cx="110" cy="31" r="5" fill="#111"/>
-    ${T(182, 24, 13, '#f3c64d', 'P1', 'end')}`),
+    ${T(182, 24, 13, '#f3c64d', 'WIN', 'end')}`),
 
   cricket: (w, h) => svg(w, h, '0 0 190 44', `
     <rect width="190" height="44" fill="#cfe8c4"/>
